@@ -17,30 +17,30 @@ public class EmployeeController {
 
     @GetMapping
     public List<Employee> getAllEmployees() {
-        return employeeService.findAll();
+        return employeeService.getAllEmployees();
     }
 
     @GetMapping("/{id}")
     public Optional<Employee> getEmployeeById(@PathVariable Integer id) {
-        return employeeService.findById(id);
+        return employeeService.getEmployeeById(id);
     }
 
     @PostMapping
     public Employee createEmployee(@RequestBody Employee employee) {
-        return employeeService.save(employee);
+        return employeeService.createEmployee(employee);
     }
 
     @PutMapping("/{id}")
     public Employee updateEmployee(@PathVariable Integer id, @RequestBody Employee employeeDetails) {
-        Employee employee = employeeService.findById(id).orElseThrow();
+        Employee employee = employeeService.getEmployeeById(id).orElseThrow();
         employee.setFirstName(employeeDetails.getFirstName());
         employee.setLastName(employeeDetails.getLastName());
         // Actualiza otros atributos según sea necesario
-        return employeeService.save(employee);
+        return employeeService.createEmployee(employee);
     }
 
     @DeleteMapping("/{id}")
     public void deleteEmployee(@PathVariable Integer id) {
-        employeeService.deleteById(id);
+        employeeService.deleteEmployee(id);
     }
 }
